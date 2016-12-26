@@ -17,7 +17,7 @@
 			</td>
 			<td>
 				<h1 id = "message"><?php echo "OMRON connect Demo"; ?></h1>
-				<p class='description'></p> Thanks for creating a <span class="blue">PHP Starter Application</span>.
+				<p class='description'></p> Thanks for creating a <span class="blue">OMRON connect Demo Application</span>.
 			</td>
 		</tr>
 	</table>

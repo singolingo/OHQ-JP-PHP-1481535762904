@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>PHP Starter Application</title>
+	<title>OGSC＆環境センサのデモ</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<link rel="stylesheet" href="style.css" />
+    <meta charset="utf-8">
+    <meta name="description" content="これはデモです。">
+
+<!-- 	<link rel="stylesheet" href="style.css" /> -->
+
+<link rel="stylesheet" href="css/BarGauge/jquery.BarGauge.css" type="text/css" />
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+<script src="jquery.SimpleChart.js"></script>
+
 
   <script type="text/javascript" src="js/ncmb.min.js" charset="utf-8">
 
@@ -52,6 +61,41 @@
 
   </script>
 
+
+<script>
+$(document).ready(function(e) {
+  var data = [{
+  values:[
+    {X:0,Y:10},
+    {X:1,Y:60},
+    {X:2,Y:70},
+    {X:3,Y:10},
+    {X:4,Y:90}
+  ],
+  color:"red",
+  title:"赤"
+  },{
+  values:[
+    {X:0,Y:0},
+    {X:1,Y:10},
+    {X:2,Y:20},
+    {X:3,Y:30},
+    {X:4,Y:40}
+  ],
+  color:"blue",
+  title:"青Blue Color"
+  }];
+  $('#demo').SimpleChart({
+      data:data,
+      title: "タイトルだよ",
+      maxValX: 4,
+      maxValY: 100,
+  });
+});
+</script>
+
+
+
 </head>
 <body>
 	<table>
@@ -61,10 +105,11 @@
 				<p class='description'></p> Thanks for creating a <span class="blue">OMRON connect Demo Application</span>.
 			</td>
 		</tr>
-
-
-
-
 	</table>
+
+   <h1>SimpleChart のデモ。</h1>
+   <div id="demo"></div>
+
+
 </body>
 </html>

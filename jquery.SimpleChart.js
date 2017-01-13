@@ -31,31 +31,31 @@ function isInt(n) {
 function isFloat(n){
 	return n % 1 == 0;
 }
-function drawAxes(graph,c,maxValX,maxValY,data){ 
+function drawAxes(graph,c,maxValX,maxValY,data){
 	c.lineWidth = 2;
 	c.strokeStyle = '#333';
 	c.font = 'italic 8pt sans-serif';
 	c.textAlign = "center";
-                
+
 	// Draw the axises
 	c.beginPath();
 	c.moveTo(xPadding, 0);
 	c.lineTo(xPadding, graph.height - yPadding);
 	c.lineTo(graph.width, graph.height - yPadding);
 	c.stroke();
-                
+
 	// Draw the X value texts
 	for(var i = 1; i <= maxValX; i++){ //for(var i = 0; i < data.values.length; i ++) {
 	// uses data.values[i].X
 		//c.fillText(data.values[i].X, getXPixel(data.values[i].X), graph.height - yPadding + 20);
 		c.lineTo(i*xfixer, graph.width);
 		c.fillText(i, getXPixel(i*xfixer,data,graph,maxValX), graph.height - yPadding + 20);
-		
-	}     
+
+	}
 	// Draw the Y value texts
 	c.textAlign = "right"
 	c.textBaseline = "middle";
-                
+
 	for(var i = 0; i <= 100; i += 10) {
 		c.fillText(i, xPadding - 10, getYPixel(i*yfixer,data,graph,maxValY));
 	}
@@ -63,7 +63,7 @@ function drawAxes(graph,c,maxValX,maxValY,data){
 
 function drawGraph(data,graph,c, color,maxValX,maxValY){
 	c.strokeStyle = color;
-                
+
 	// Draw the line graph
 	c.beginPath();
 	c.moveTo(getXPixel(data.values[0].X*xfixer,data,graph,maxValX), getYPixel(data.values[0].Y,data,graph,maxValY));
@@ -71,27 +71,27 @@ function drawGraph(data,graph,c, color,maxValX,maxValY){
 		c.lineTo(getXPixel(data.values[i].X*xfixer,data,graph,maxValX), getYPixel(data.values[i].Y,data,graph,maxValY));
 	}
 	c.stroke();
-                
+
 	// Draw the dots
 	c.fillStyle = color;
-                
-	for(var i = 0; i < data.values.length; i ++) {  
+
+	for(var i = 0; i < data.values.length; i ++) {
 		c.beginPath();
 		c.arc(getXPixel(data.values[i].X*xfixer,data,graph,maxValX), getYPixel(data.values[i].Y,data,graph,maxValY), 4, 0, Math.PI * 2, true);
 		c.fill();
 	}
 }
-	
+
 // Returns the max Y value in our data list
 function getMaxY(data) {
 	var max = 0;
-                
+
 	for(var i = 0; i < data.values.length; i ++) {
 		if(data.values[i].Y > max) {
 			max = data.values[i].Y;
 		}
 	}
-                
+
 	max += 10 - max % 10;
 	return max;
 }
@@ -99,29 +99,29 @@ function getMaxY(data) {
 // Returns the max X value in our data list
 function getMaxX(data) {
 	var max = 0;
-                
+
 	for(var i = 0; i < data.values.length; i ++) {
 		if(data.values[i].X > max) {
 			max = data.values[i].X;
 		}
 	}
-                
+
 	max += 10 - max % 10;
 	return max;
 }
-            
+
 // Return the x pixel for a graph point
 function getXPixel(val,data,graph,maxValX) {
 	return ((graph.width - xPadding) / maxValX) * val + (xPadding);
 }
-            
+
 // Return the y pixel for a graph point
 function getYPixel(val,data,graph,maxValY) {
 	return graph.height - (((graph.height - yPadding) / maxValY) * val) - yPadding;
 }
 
 (function( $ ) {
- 
+
     $.fn.SimpleChart = function(options) {
  		var graph, c;
         // Here are the default options.
@@ -155,10 +155,10 @@ function getYPixel(val,data,graph,maxValY) {
 			showKey: true,				// Show chart key
 			toolTip: ''					// If set, this will use jQuery Tooltip
         }, options );
-		
+
 		var mainDivId = this.uniqueId(); // Generate Unique ID for container div
 		var titleColor
-		
+
 		// Generate Bar with Options
 		var useTitle = "";
 		var useKey = "";
@@ -179,37 +179,37 @@ function getYPixel(val,data,graph,maxValY) {
 				'<div class="XAxis">' + settings.xTitle + '</div>' +
 				useKey +
    			'</div>');
-			
+
 		// Initiate Tool Tip
 		if(settings.toolTip !== ''){
 			$(mainDivId.selector).attr('title',settings.toolTip);
 			$(mainDivId.selector).tooltip();
 		}
-		
+
 		// Populate Key
 		if(settings.showKey){
 			for(i in settings.data){
-				$(mainDivId.selector + ' .graphKey').append('<div class="input-color"><div class="color-box" style="background-color:' + settings.data[i].color + ';"></div><div class="name">' + settings.data[i].title + '</div></div>');	
+				$(mainDivId.selector + ' .graphKey').append('<div class="input-color"><div class="color-box" style="background-color:' + settings.data[i].color + ';"></div><div class="name">' + settings.data[i].title + '</div></div>');
 			}
 		}
- 		
+
 		// Generate CSS from options
 		//Graph
 		$(mainDivId.selector + ' .graph').css({
 			'float':'left',
 			'margin': settings.margin + 'px',
-			'position': 'relative', 
+			'position': 'relative',
 			'width': (settings.width + 90) + 'px',
 			'height': (settings.height + 80) + 'px',
 			'background': settings.backgroundColor
 		});
-		
+
 		// Container
-        this.css({ 
+        this.css({
 			'position': 'relative',
 			'margin':'20px'
 		});
-		
+
 		// Graph Header
 		$(mainDivId.selector + ' .graph_header').css({
 			'position':'absolute',
@@ -222,52 +222,52 @@ function getYPixel(val,data,graph,maxValY) {
 			'font-size': settings.titleFontSize + 'px',
 			'font-weight':'bold',
 			'text-align':'center',
-			'border-top': settings.borderColor + ' solid ' + settings.borderWidth + 'px', 
-			'border-left':settings.borderColor + ' solid ' + settings.borderWidth + 'px', 
+			'border-top': settings.borderColor + ' solid ' + settings.borderWidth + 'px',
+			'border-left':settings.borderColor + ' solid ' + settings.borderWidth + 'px',
 			'border-right':settings.borderColor + ' solid ' + settings.borderWidth + 'px',
 			'color': settings.titleColor,
 			'background':settings.titleBGColor
 		});
-		
+
 		// Main Graph
 		$(mainDivId.selector + ' .main_graph').css({
 			'border': settings.borderColor + ' solid ' + settings.borderWidth + 'px',
-			'position':'absolute', 
-			'top':(50 + settings.borderWidth) + 'px', 
+			'position':'absolute',
+			'top':(50 + settings.borderWidth) + 'px',
 			'left':'24px',
-		}); 
-		
+		});
+
 		// YAxis
 		$(mainDivId.selector + ' .YAxis').css({
-			'position':'absolute', 
+			'position':'absolute',
 			'top': (50 + settings.borderWidth) + 'px',
-			'left':'0px', 
-			'width':'11px', 
-			'height': (settings.height + 20 + settings.borderWidth) +'px', 
-			'border-left':settings.borderColor + ' solid ' + settings.borderWidth + 'px', 
-			'border-bottom':settings.borderColor + ' solid ' + settings.borderWidth + 'px', 
+			'left':'0px',
+			'width':'11px',
+			'height': (settings.height + 20 + settings.borderWidth) +'px',
+			'border-left':settings.borderColor + ' solid ' + settings.borderWidth + 'px',
+			'border-bottom':settings.borderColor + ' solid ' + settings.borderWidth + 'px',
 			'padding':'5px',
 			'text-align':'center',
 			'word-wrap': 'break-word',
 			'color': settings.yTitleColor,
 			'background':settings.yTitleBGColor
 		});
-		
+
 		// XAxis
 		$(mainDivId.selector + ' .XAxis').css({
-			'position':'absolute', 
-			'top': (settings.height + 50 + settings.borderWidth) + 'px', 
-			'left':'24px', 
-			'height': (30 + settings.borderWidth) + 'px', 
-			'line-height':(30 + settings.borderWidth) + 'px', 
-			'width':(settings.width + settings.borderWidth) + 'px', 
-			'text-align':'center', 
+			'position':'absolute',
+			'top': (settings.height + 50 + settings.borderWidth) + 'px',
+			'left':'24px',
+			'height': (30 + settings.borderWidth) + 'px',
+			'line-height':(30 + settings.borderWidth) + 'px',
+			'width':(settings.width + settings.borderWidth) + 'px',
+			'text-align':'center',
 			'border-right':settings.borderColor + ' solid ' + settings.borderWidth + 'px',
 			'border-bottom':settings.borderColor + ' solid ' + settings.borderWidth + 'px',
 			'color': settings.xTitleColor,
 			'background': settings.xTitleBGColor
 		});
-		
+
 		//Graph Key Container
 		$(mainDivId.selector + ' .graphKey').css({
 			'position':'absolute',
@@ -276,12 +276,12 @@ function getYPixel(val,data,graph,maxValY) {
 			'width':'50px',
 			'height': (settings.height + 23 + settings.borderWidth) + 'px',
 		});
-		
+
 		// Graph Key Color Box
 		$(mainDivId.selector + ' .graphKey .input-color').css({
     		'position': 'relative'
 		});
-		
+
 		// Graph Key Title Padding
 		$(mainDivId.selector + ' .graphKey .input-color .name').css({
     		'padding-left': '20px'
@@ -296,7 +296,7 @@ function getYPixel(val,data,graph,maxValY) {
 		    'left': '5px',
 		    'top': '5px',
 		});
-		
+
 		graph = $($(this).selector + ' .main_graph')[0];
 		c = graph.getContext('2d');
 		drawAxes(graph,c,settings.maxValX,settings.maxValY,settings.data[0]);

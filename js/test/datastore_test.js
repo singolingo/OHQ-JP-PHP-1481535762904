@@ -73,7 +73,7 @@ describe("NCMB DataStore", function(){
               });
         });
       });
-      
+
       it("クラス名がなければ、クラス生成に失敗する", function(done){
         expect(function(){
           ncmb.DataStore();
@@ -86,7 +86,7 @@ describe("NCMB DataStore", function(){
         }).to.throw(Error);
         done();
       });
-      
+
       context("Dateタイプをプロパティに設定したときオブジェクト保存に成功し", function(){
         var Food = null;
         var aSimpleDate = null;

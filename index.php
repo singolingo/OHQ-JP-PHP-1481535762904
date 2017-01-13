@@ -5,30 +5,30 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta charset="utf-8">
     <meta name="description" content="OMRON connect Demo">
+<!-- <link rel="stylesheet" href="style.css" /> -->
 
-<!-- 	<link rel="stylesheet" href="style.css" /> -->
-
+<!-- OGSC Cloud  -->
+<link rel="stylesheet" href="css/BarGauge/jquery.SimpleChart.css" type="text/css" />
 <link rel="stylesheet" href="css/BarGauge/jquery.BarGauge.css" type="text/css" />
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
-<script src="jquery.SimpleChart.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/jquery.SimpleChart.js"></script>
+<script type="text/javascript" src="js/jquery.BarGauge.js"></script>
 
-
-  <script type="text/javascript" src="js/ncmb.min.js" charset="utf-8">
-
-  <!-- Nifty Cloud  -->
-    //【環境センサー】 ニフティクラウドに接続
+<!-- Nifty Cloud  -->
+<script type="text/javascript" src="js/ncmb.min.js" charset="utf-8"></script>
+<script>
+    //【環境センサー】Nifty mobile backendアプリとの連携
+ function onKankyoButton1_Click(){
     var ncmb = new NCMB(e34bf31c6652e31c561f3f0253bd13a46ace822c266a490e69d13c51109f0106,1e58451ab1c41d53824514f79552c0a718716af91e898f8418494bf22132b416);
-    //【OHQ】 ニフティクラウドに接続
-    //var ncmb = new NCMB(960534844e162f267e64764aa91ed32cbdf73a4582451afe5be15a6bec788bf6,0072db3fd89db23a26cef2ef707c9f4f42035f8a8a69cc22dc7c881c49225934);
 
     // クラスのTestClassを作成
     var OC_KankyoSensor = ncmb.DataStore("OC_KankyoSensor");
 
-    // データストアへの登録
+    // データストアの読込み
     var OC_KankyoSensor = new OC_KankyoSensor();
-    OC_KankyoSensor.set("message", "This is A message.");
-    OC_KankyoSensor.save()
+    OC_KankyoSensor.set("message", "環境センサーの処理");
+    OC_KankyoSensor.load()
          .then(function(){                 // 保存に成功した場合の処理
 
 
@@ -39,9 +39,11 @@
 
 
           });
+    };
+</script>
 
-
-    <!-- OGSC Cloud  -->
+<!-- OGSC Cloud  -->
+<script>
      // ヘッダーを指定
 	header( "Content-Type: application/json; charset=utf-8" ) ;
 	$url = "http://OGSC.com"; // OGSC Cloud API サーバーのURL　＆　アクセスキー
@@ -58,43 +60,164 @@
      $Shinpaku= 0;
 
 	}
-
-  </script>
+</script>
 
 
 <script>
+
+//SimpleChart のデータ
 $(document).ready(function(e) {
   var data = [{
   values:[
-    {X:0,Y:10},
-    {X:1,Y:60},
-    {X:2,Y:70},
-    {X:3,Y:10},
-    {X:4,Y:90}
+    {X:0,Y:122},
+    {X:1,Y:127},
+    {X:2,Y:125},
+    {X:3,Y:134},
+    {X:4,Y:124}
   ],
   color:"red",
   title:"赤"
   },{
   values:[
-    {X:0,Y:0},
-    {X:1,Y:10},
-    {X:2,Y:20},
-    {X:3,Y:30},
-    {X:4,Y:40}
+    {X:0,Y:88},
+    {X:1,Y:91},
+    {X:2,Y:93},
+    {X:3,Y:94},
+    {X:4,Y:90}
   ],
   color:"blue",
   title:"青Blue Color"
   }];
-  $('#demo').SimpleChart({
+  $('#BloodPressure').SimpleChart({
       data:data,
-      title: "タイトルだよ",
-      maxValX: 4,
-      maxValY: 100,
+      title: "血圧",
+      maxValX: 30,
+      maxValY: 180,
   });
 });
+
+
+//BarGaugeのデータ
+$(document).ready(function(e) {
+    $('#kankyo1').BarGauge({
+		value: 30,
+		goal: 100,
+		decPlaces: 2,
+        color: '#ff0000',
+		title: "気温",
+		showTitle: true,
+		value_before: "摂氏",
+		value_after: "度C",
+		valueColor: '#77ff77',
+		showValue: true,
+		animSpeed: 'slow',
+		animType: 'linear',
+		toolTip: '推移を表示'
+	});
+	$('#kankyo2').BarGauge({
+		value: 60,
+		goal: 100,
+		decPlaces: 2,
+		color: '#00ff00',
+		title: "湿度",
+		showTitle: true,
+		value_before: "湿度",
+		value_after: "度",
+		valueColor: '#77ff77',
+		toolTip: '推移を表示',
+		showValue: true,
+		animSpeed: 1000,
+		animType: 'swing',
+		faceplate: "url(css/BarGauge/bar_graph-colorScale.png) no-repeat",
+	});
+	$('#kankyo3').BarGauge({
+		value: 2,
+		goal: 10,
+		color: 'yellow',
+		backgroundColor: 'black',
+		decPlaces: 0,
+		title: "照度",
+		toolTip: '推移を表示',
+		valueColor: '#77ff77',
+		showTitle: true,
+		value_after: "％",
+		showValue: true,
+		animSpeed: 'fast',
+		faceplate: "url(css/BarGauge/bar_graph-gradient.png) no-repeat"
+	});
+    $('#kankyo4').BarGauge({
+		value: 51,
+		goal: 100,
+		decPlaces: 2,
+		color: 'pink',
+		title: "騒音",
+		toolTip: '推移を表示',
+		valueColor: '#77ff77',
+		showTitle: true,
+		value_after: "デシベル",
+		showValue: true,
+		animSpeed: 'slow',
+		animType: 'linear'
+	});
+    $('#kankyo5').BarGauge({
+		value: 51000,
+		goal: 100000,
+		decPlaces: 2,
+		color: 'orange',
+		title: "UV",
+		toolTip: '推移を表示',
+		valueColor: '#77ff77',
+		showTitle: true,
+		value_after: "度",
+		showValue: true,
+		animSpeed: 'slow',
+		animType: 'linear'
+	});
+    $('#kankyo6').BarGauge({
+		value: 100,
+		goal: 10,
+		decPlaces: 2,
+		color: 'sky',
+		title: "気圧",
+		toolTip: '推移を表示',
+		valueColor: '#77ff77',
+		showTitle: true,
+		value_before: "Pa",
+		showValue: true,
+		animSpeed: 'slow',
+		animType: 'linear'
+	});
+    $('#kankyo7').BarGauge({
+		value: 70,
+		goal: 100,
+		decPlaces: 2,
+		color: 'white',
+		backgroundColor: 'black',
+		title: "不快指数",
+		toolTip: '推移を表示',
+		valueColor: '#77ff77',
+		showTitle: true,
+		showValue: true,
+		animSpeed: 'slow',
+		animType: 'linear'
+	});
+    $('#kankyo8').BarGauge({
+		value: 51,
+		goal: 100,
+		color: 'purple',
+		backgroundColor: 'white',
+		decPlaces: 2,
+		title: "熱中症",
+		toolTip: '推移を表示',
+		valueColor: '#77ff77',
+		showTitle: true,
+		showValue: true,
+		animSpeed: 'slow',
+		animType: 'linear'
+	});
+});
+
 </script>
-
-
 
 </head>
 <body>
@@ -102,16 +225,52 @@ $(document).ready(function(e) {
 		<tr>
 			<td>
 				<h1 id = "message"><?php echo "OMRON connect Demo"; ?></h1>
-				<p class='description'></p> Thanks for creating a <span class="blue">OMRON connect Demo Application</span>.
 			</td>
 		</tr>
 	</table>
 
+	<table>
+		<tr>
+			<td>
    <h1>血圧計</h1>
-   <div id="demo"></div>
-
+   <div id="BloodPressure"></div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+   <table>
    <h1>環境センサー</h1>
-   <div id="demo2"></div>
+   <a class=button onclick=onKankyoButton1_Click()>環境センサーからデータを取得</a>
+
+      <tr>
+      <td><font size=22 >気温</font></td><td>
+      <div id="kankyo1" class="barGauge_container"></div></td>
+      <td><font size=22 >湿度</font></td><td>
+      <div id="kankyo2" class="barGauge_container"></div></td>
+      </tr>
+      <tr>
+      <td><font size=22 >照度</font></td><td>
+      <div id="kankyo3" class="barGauge_container"></div></td>
+      <td><font size=22 >騒音</font></td><td>
+      <div id="kankyo4" class="barGauge_container"></div></td>
+      </tr>
+      <tr>
+      <td><font size=22 >UV</font></td><td>
+      <div id="kankyo5" class="barGauge_container"></div></td>
+      <td><font size=22 >気圧</font></td><td>
+      <div id="kankyo6" class="barGauge_container"></div></td>
+      </tr>
+      <tr>
+      <td><font size=22 >不快</font></td><td>
+      <div id="kankyo7" class="barGauge_container"></div></td>
+      <td><font size=22 >熱中症</font></td><td>
+      <div id="kankyo8" class="barGauge_container"></div></td>
+      </tr>
+    </table>
+
+			</td>
+		</tr>
+	</table>
 
 </body>
 </html>

@@ -4,7 +4,7 @@
 	<title>OGSC＆環境センサのデモ</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta charset="utf-8">
-    <meta name="description" content="これはデモです。">
+    <meta name="description" content="これはデモです。 ">
 
 <!-- 	<link rel="stylesheet" href="style.css" /> -->
 

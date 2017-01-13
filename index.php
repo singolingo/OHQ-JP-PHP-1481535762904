@@ -4,7 +4,7 @@
 	<title>OGSC＆環境センサのデモ</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta charset="utf-8">
-    <meta name="description" content="これはデモです。 ">
+    <meta name="description" content="OMRON connect Demo">
 
 <!-- 	<link rel="stylesheet" href="style.css" /> -->
 
@@ -107,9 +107,11 @@ $(document).ready(function(e) {
 		</tr>
 	</table>
 
-   <h1>SimpleChart のデモ。</h1>
+   <h1>血圧計</h1>
    <div id="demo"></div>
 
+   <h1>環境センサー</h1>
+   <div id="demo2"></div>
 
 </body>
 </html>

@@ -17,7 +17,23 @@
 
 <!-- Nifty Cloud  -->
 <script type="text/javascript" src="js/ncmb.min.js" charset="utf-8"></script>
-<script>
+<script type="text/javascript">
+
+  // ボタンクリックで更新
+    jQuery(document).ready(function () {
+        $(".btn1").click(function(){
+            alert("Button枠がクリックされました");
+        	$('.kankyo1').BarGauge({
+				value: 70,
+				goal: 100,
+			});
+			$('.kankyo2').BarGauge({
+				value: 70,
+				goal: 100,
+			});
+        });
+    });
+
     //【環境センサー】Nifty mobile backendアプリとの連携
  function onKankyoButton1_Click(){
     var ncmb = new NCMB(e34bf31c6652e31c561f3f0253bd13a46ace822c266a490e69d13c51109f0106,1e58451ab1c41d53824514f79552c0a718716af91e898f8418494bf22132b416);
@@ -25,20 +41,25 @@
     // クラスのTestClassを作成
     var OC_KankyoSensor = ncmb.DataStore("OC_KankyoSensor");
 
-    // データストアの読込み
-    var OC_KankyoSensor = new OC_KankyoSensor();
-    OC_KankyoSensor.set("message", "環境センサーの処理");
-    OC_KankyoSensor.load()
-         .then(function(){                 // 保存に成功した場合の処理
+    OC_KankyoSensor.fetchAll()
+    .then(function(results){
+           	//for (var i=0; i<results.length ;i++){
+            //	var = object = results[i];
+                var object = results[0];       // 1件のみ取得
+                //}
+    })
+    .catch(function(err){
+        	    console.log(err);
+    });
 
-
-
-          })
-         .catch(function(err){            // 保存に失敗した場合の処理
-
-
-
-          });
+    // データストアへのデータ登録
+//    var OC_KankyoSensor = new OC_KankyoSensor(); //インスタンス化
+//    OC_KankyoSensor.set("message", "環境センサーの処理");
+//    OC_KankyoSensor.load()
+//         .then(function(){                 // 保存に成功した場合の処理
+//          })
+//         .catch(function(err){            // 保存に失敗した場合の処理
+//          });
     };
 </script>
 
@@ -53,7 +74,13 @@
 	$arr = json_decode($json,true);
 
 	if ($arr === NULL) {      //〜データがない時の処理〜
-	    return;
+        var data;
+       for(i=0,i<count(arr),i++){
+          data.X = arr[i][0];
+          data.Y = arr[i][1];
+       }
+
+		return;
 	}else{	                  //〜存在しているときの処理〜
      $BPmax= 0;
      $BPmin= 0;
@@ -66,7 +93,7 @@
 <script>
 
 //SimpleChart のデータ
-$(document).ready(function(e) {
+$(document).ready(function(a) {
   var data = [{
   values:[
     {X:0,Y:122},
@@ -76,7 +103,7 @@ $(document).ready(function(e) {
     {X:4,Y:124}
   ],
   color:"red",
-  title:"赤"
+  title:"max"
   },{
   values:[
     {X:0,Y:88},
@@ -86,7 +113,17 @@ $(document).ready(function(e) {
     {X:4,Y:90}
   ],
   color:"blue",
-  title:"青Blue Color"
+  title:"min"
+  },{
+	  values:[
+	    {X:0,Y:75},
+	    {X:1,Y:74},
+	    {X:2,Y:75},
+	    {X:3,Y:77},
+	    {X:4,Y:76}
+	  ],
+	  color:"orange",
+	  title:"bpm"
   }];
   $('#BloodPressure').SimpleChart({
       data:data,
@@ -98,7 +135,7 @@ $(document).ready(function(e) {
 
 
 //BarGaugeのデータ
-$(document).ready(function(e) {
+$(document).ready(function(b) {
     $('#kankyo1').BarGauge({
 		value: 30,
 		goal: 100,
@@ -240,7 +277,8 @@ $(document).ready(function(e) {
 			<td>
    <table>
    <h1>環境センサー</h1>
-   <a class=button onclick=onKankyoButton1_Click()>環境センサーからデータを取得</a>
+
+<!--    <input type="button" id="btn1" value="環境センサーからデータを取得" /> -->
 
       <tr>
       <td><font size=22 >気温</font></td><td>

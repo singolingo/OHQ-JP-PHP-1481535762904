@@ -5,14 +5,14 @@
     <meta name="description" content="OMRON connect Demo">
 <head>
 	<title>OGSC＆環境センサのデモ</title>
-<!-- <link rel="stylesheet" href="style.css" /> -->
+<!-- <link rel="stylesheet" href="css/style.css" /> -->
 
 <!-- OGSC Cloud  -->
 <link rel="stylesheet" href="css/BarGauge/jquery.BarGauge.css" type="text/css" />
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
-<script type="text/javascript" src="js/jquery.SimpleChart.js"></script>
-<script type="text/javascript" src="js/jquery.BarGauge.js"></script>
+<script type="text/javascript" src="jquery/jquery.SimpleChart.js"></script>
+<script type="text/javascript" src="jquery/jquery.BarGauge.js"></script>
 
 <!-- Nifty Cloud  -->
 <script type="text/javascript" src="js/ncmb.min.js" charset="utf-8"></script>

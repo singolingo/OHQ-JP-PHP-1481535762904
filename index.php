@@ -8,7 +8,6 @@
 <!-- <link rel="stylesheet" href="style.css" /> -->
 
 <!-- OGSC Cloud  -->
-<link rel="stylesheet" href="css/BarGauge/jquery.SimpleChart.css" type="text/css" />
 <link rel="stylesheet" href="css/BarGauge/jquery.BarGauge.css" type="text/css" />
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>

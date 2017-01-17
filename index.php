@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
+    <meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta name="description" content="OMRON connect Demo">
 <head>
 	<title>OGSC＆環境センサのデモ</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta charset="utf-8">
-    <meta name="description" content="OMRON connect Demo">
 <!-- <link rel="stylesheet" href="style.css" /> -->
 
 <!-- OGSC Cloud  -->
@@ -21,7 +21,7 @@
 
   // ボタンクリックで更新
     jQuery(document).ready(function () {
-        $(".btn1").click(function(){
+    	$(document).on('click', 'btn1', function(){
             alert("Button枠がクリックされました");
         	$('.kankyo1').BarGauge({
 				value: 70,

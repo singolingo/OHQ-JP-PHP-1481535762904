@@ -74,8 +74,8 @@
 	$arr = json_decode($json,true);
 
 	if ($arr === NULL) {      //〜データがない時の処理〜
-        var data;
-       for(i=0,i<count($arr),i++){
+       var data;
+       for(i=0,i<5,i++){
           data.X = arr[i][0];
           data.Y = arr[i][1];
        }
@@ -126,10 +126,33 @@ $(document).ready(function(a) {
 	  title:"bpm"
   }];
   $('#BloodPressure').SimpleChart({
-      data:data,
-      title: "血圧",
-      maxValX: 30,
-      maxValY: 180,
+		data: data,					// Default plot
+		lineWidth: 2,				// Chart Line Width
+		strokeColor: "#333",		// Axis Lines Color
+		borderColor: "#333",		// Border Color
+		borderWidth: 3,				// Border Width
+		backgroundColor: "#FFF",	// Background color of chart
+		backgroundImg: "css/jquery.SimpleChart/monthly_grid.png", // Background Image for chart (i.e Grid Layout)
+		title: "血圧",		        // Default Title of chart
+		titleFontSize: 16,			// Title Font size
+		titleColor: "#FFF",			// Title Color
+		showTitle: true,			// If True show title
+		titleBGColor: '#006',		// Title Background Color
+		xTitle: "",				    // Title of X Axis
+		yTitle: "",					// Title of Y Axis
+		xTitleBGColor: '#006',		// Title X Axis background Color
+		yTitleBGColor: '#006',		// Title Y Axis background Color
+		xFontSize: 16,				// X Axis Title Font Size
+		yFontSize: 16, 				// Y Axis Title Font Size
+		xTitleColor: "#000",		// X Axis Title Color
+		yTitleColor: "#000",		// Y Axis Title Color
+		maxValX: 31,				// Maximum value of data XAxis
+		maxValY: 200,				// Maximum value of data YAxis
+		width: 500,					// Width of Graph
+		height: 300,				// Height of Graph
+		margin: 10,					// Margin between each graph
+		showKey: true,				// Show chart key
+		toolTip: ''					// If set, this will use jQuery Tooltip
   });
 });
 
@@ -270,7 +293,7 @@ $(document).ready(function(b) {
 		<tr>
 			<td>
    <h1>血圧計</h1>
-   <div id="BloodPressure"></div>
+   <div id="BloodPressure" style="position:relative"></div>
 			</td>
 		</tr>
 		<tr>

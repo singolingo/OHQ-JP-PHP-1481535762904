@@ -36,7 +36,7 @@
 
     //【環境センサー】Nifty mobile backendアプリとの連携
  function onKankyoButton1_Click(){
-    var ncmb = new NCMB(e34bf31c6652e31c561f3f0253bd13a46ace822c266a490e69d13c51109f0106,1e58451ab1c41d53824514f79552c0a718716af91e898f8418494bf22132b416);
+    var ncmb = new NCMB("e34bf31c6652e31c561f3f0253bd13a46ace822c266a490e69d13c51109f0106", "1e58451ab1c41d53824514f79552c0a718716af91e898f8418494bf22132b416");
 
     // クラスのTestClassを作成
     var OC_KankyoSensor = ncmb.DataStore("OC_KankyoSensor");
@@ -75,7 +75,7 @@
 
 	if ($arr === NULL) {      //〜データがない時の処理〜
         var data;
-       for(i=0,i<count(arr),i++){
+       for(i=0,i<count($arr),i++){
           data.X = arr[i][0];
           data.Y = arr[i][1];
        }

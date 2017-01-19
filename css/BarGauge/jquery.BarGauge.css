@@ -1,5 +1,5 @@
 @charset "utf-8";
-/* 
+/*
 BarGauge CSS
 By Robert Haddad (SmokinPuppy) @ 2014
 for jquery.BarGauge.js
@@ -7,7 +7,7 @@ for jquery.BarGauge.js
 
 .barGauge_container {
 	position:relative;
-	display:inline-block; 
+	display:inline-block;
 	background:#FFF;
 	text-align:center;
 	overflow:hidden;

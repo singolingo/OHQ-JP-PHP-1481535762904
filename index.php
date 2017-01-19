@@ -11,8 +11,8 @@
 <link rel="stylesheet" href="css/BarGauge/jquery.BarGauge.css" type="text/css" />
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
-<script type="text/javascript" src="jquery/jquery.SimpleChart.js"></script>
-<script type="text/javascript" src="jquery/jquery.BarGauge.js"></script>
+<script type="text/javascript" src="js/jquery.SimpleChart.js"></script>
+<script type="text/javascript" src="js/jquery.BarGauge.js"></script>
 
 <!-- Nifty Cloud  -->
 <script type="text/javascript" src="js/ncmb.min.js" charset="utf-8"></script>
@@ -51,19 +51,9 @@
         	    console.log(err);
     });
 
-    // データストアへのデータ登録
-//    var OC_KankyoSensor = new OC_KankyoSensor(); //インスタンス化
-//    OC_KankyoSensor.set("message", "環境センサーの処理");
-//    OC_KankyoSensor.load()
-//         .then(function(){                 // 保存に成功した場合の処理
-//          })
-//         .catch(function(err){            // 保存に失敗した場合の処理
-//          });
     };
-</script>
 
 <!-- OGSC Cloud  -->
-<script>
      // ヘッダーを指定
 	header( "Content-Type: application/json; charset=utf-8" ) ;
 	$url = "http://OGSC.com"; // OGSC Cloud API サーバーのURL　＆　アクセスキー
@@ -73,13 +63,7 @@
 	$arr = json_decode($json,true);
 
 	if ($arr === NULL) {      //〜データがない時の処理〜
-       var data;
-       for(i=0,i<5,i++){
-          data.X = arr[i][0];
-          data.Y = arr[i][1];
-       }
 
-		return;
 	}else{	                  //〜存在しているときの処理〜
      $BPmax= 0;
      $BPmin= 0;
@@ -133,7 +117,7 @@ $(document).ready(function(a) {
 		backgroundColor: "#FFF",	// Background color of chart
 		backgroundImg: "css/jquery.SimpleChart/monthly_grid.png", // Background Image for chart (i.e Grid Layout)
 		title: "血圧",		        // Default Title of chart
-		titleFontSize: 16,			// Title Font size
+		titleFontSize: 32,			// Title Font size
 		titleColor: "#FFF",			// Title Color
 		showTitle: true,			// If True show title
 		titleBGColor: '#006',		// Title Background Color

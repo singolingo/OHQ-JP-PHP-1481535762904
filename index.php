@@ -18,40 +18,56 @@
 <script type="text/javascript" src="js/ncmb.min.js" charset="utf-8"></script>
 <script type="text/javascript">
 
-  // ボタンクリックで更新
-    jQuery(document).ready(function () {
-    	$(document).on('click', 'btn1', function(){
-            alert("Button枠がクリックされました");
-        	$('.kankyo1').BarGauge({
-				value: 70,
-				goal: 100,
-			});
-			$('.kankyo2').BarGauge({
-				value: 70,
-				goal: 100,
-			});
-        });
-    });
-
     //【環境センサー】Nifty mobile backendアプリとの連携
  function onKankyoButton1_Click(){
-    var ncmb = new NCMB("e34bf31c6652e31c561f3f0253bd13a46ace822c266a490e69d13c51109f0106", "1e58451ab1c41d53824514f79552c0a718716af91e898f8418494bf22132b416");
 
-    // クラスのTestClassを作成
-    var OC_KankyoSensor = ncmb.DataStore("OC_KankyoSensor");
 
-    OC_KankyoSensor.fetchAll()
+
+    // Nifty Cloud上のデータストアに接続
+//    var ncmb = new NCMB("960534844e162f267e64764aa91ed32cbdf73a4582451afe5be15a6bec788bf6", "0072db3fd89db23a26cef2ef707c9f4f42035f8a8a69cc22dc7c881c49225934");
+ 	var ncmb = new NCMB("e34bf31c6652e31c561f3f0253bd13a46ace822c266a490e69d13c51109f0106", "1e58451ab1c41d53824514f79552c0a718716af91e898f8418494bf22132b416");
+    var class_KankyoSensor = ncmb.DataStore("sensor_data");
+//    var KS = new class_KankyoSensor();
+
+    var target = document.getElementById("message1");
+    target.innerHTML = "接続成功";
+
+    var temper; //Temperature
+    var humid; //Humidity
+    var illumi; //Illuminance
+    var uv; //UV
+    var noize; //Noize
+    var temphumid; // TemperatureHumidity
+    var heat; //heatstroke
+    var air; //Air Pressure
+
+
+    class_KankyoSensor.qualTo("sensorId","1B-00-01-21") //SensorIdは埋め込み。
+    .order("measureDate",true)  //降順にソート（昇順の場合は、第２引数をカット。）
+    .limit(1)
+    .fetchAll()
     .then(function(results){
-           	//for (var i=0; i<results.length ;i++){
-            //	var = object = results[i];
-                var object = results[0];       // 1件のみ取得
-                //}
-    })
+       for (var i = 0; i < results.length; i++) {
+         var object = results[i];
+         temper = object.get("temperature");
+         humid = object.get("humidity");
+         illumi = object.get("illuminance");
+         uv = object.get("uv");
+         noize = object.get("noise");
+         temphumid = object.get("temperatureHumidity");
+         heat = object.get("heatStroke");
+         air = object.get("airPressure");
+       }
+     })
     .catch(function(err){
-        	    console.log(err);
-    });
+       console.log(err);
+     });
 
-    };
+    target.innerHTML = msg[0] + msg[1] + msg[2] + msg[3];
+
+ }
+
+
 
 <!-- OGSC Cloud  -->
      // ヘッダーを指定
@@ -142,8 +158,8 @@ $(document).ready(function(a) {
 
 //BarGaugeのデータ
 $(document).ready(function(b) {
-    $('#kankyo1').BarGauge({
-		value: 30,
+    $('#kion').BarGauge({
+		value: temper,
 		goal: 100,
 		decPlaces: 2,
         color: '#ff0000',
@@ -157,8 +173,8 @@ $(document).ready(function(b) {
 		animType: 'linear',
 		toolTip: '推移を表示'
 	});
-	$('#kankyo2').BarGauge({
-		value: 60,
+	$('#shitudo').BarGauge({
+		value: humid,
 		goal: 100,
 		decPlaces: 2,
 		color: '#00ff00',
@@ -173,7 +189,7 @@ $(document).ready(function(b) {
 		animType: 'swing',
 		faceplate: "url(css/BarGauge/bar_graph-colorScale.png) no-repeat",
 	});
-	$('#kankyo3').BarGauge({
+	$('#syoudo').BarGauge({
 		value: 2,
 		goal: 10,
 		color: 'yellow',
@@ -188,7 +204,7 @@ $(document).ready(function(b) {
 		animSpeed: 'fast',
 		faceplate: "url(css/BarGauge/bar_graph-gradient.png) no-repeat"
 	});
-    $('#kankyo4').BarGauge({
+    $('#souon').BarGauge({
 		value: 51,
 		goal: 100,
 		decPlaces: 2,
@@ -202,7 +218,7 @@ $(document).ready(function(b) {
 		animSpeed: 'slow',
 		animType: 'linear'
 	});
-    $('#kankyo5').BarGauge({
+    $('#uv').BarGauge({
 		value: 51000,
 		goal: 100000,
 		decPlaces: 2,
@@ -216,7 +232,7 @@ $(document).ready(function(b) {
 		animSpeed: 'slow',
 		animType: 'linear'
 	});
-    $('#kankyo6').BarGauge({
+    $('#kiatsu').BarGauge({
 		value: 100,
 		goal: 10,
 		decPlaces: 2,
@@ -230,7 +246,7 @@ $(document).ready(function(b) {
 		animSpeed: 'slow',
 		animType: 'linear'
 	});
-    $('#kankyo7').BarGauge({
+    $('#hukai').BarGauge({
 		value: 70,
 		goal: 100,
 		decPlaces: 2,
@@ -244,7 +260,7 @@ $(document).ready(function(b) {
 		animSpeed: 'slow',
 		animType: 'linear'
 	});
-    $('#kankyo8').BarGauge({
+    $('netyusyou').BarGauge({
 		value: 51,
 		goal: 100,
 		color: 'purple',
@@ -284,31 +300,32 @@ $(document).ready(function(b) {
    <table>
    <h1>環境センサー</h1>
 
-<!--    <input type="button" id="btn1" value="環境センサーからデータを取得" /> -->
+    <input type="button" id="btn1" value="テスト" onclick="onKankyoButton1_Click()" /><br>
+    <div id="message1">ボタンを押してください。</div><br>
 
       <tr>
       <td><font size=22 >気温</font></td><td>
-      <div id="kankyo1" class="barGauge_container"></div></td>
+      <div id="kion" class="barGauge_container"></div></td>
       <td><font size=22 >湿度</font></td><td>
-      <div id="kankyo2" class="barGauge_container"></div></td>
+      <div id="shitudo" class="barGauge_container"></div></td>
       </tr>
       <tr>
       <td><font size=22 >照度</font></td><td>
-      <div id="kankyo3" class="barGauge_container"></div></td>
+      <div id="syoudo" class="barGauge_container"></div></td>
       <td><font size=22 >騒音</font></td><td>
-      <div id="kankyo4" class="barGauge_container"></div></td>
+      <div id="souon" class="barGauge_container"></div></td>
       </tr>
       <tr>
       <td><font size=22 >UV</font></td><td>
-      <div id="kankyo5" class="barGauge_container"></div></td>
+      <div id="uv" class="barGauge_container"></div></td>
       <td><font size=22 >気圧</font></td><td>
-      <div id="kankyo6" class="barGauge_container"></div></td>
+      <div id="kiatsu" class="barGauge_container"></div></td>
       </tr>
       <tr>
       <td><font size=22 >不快</font></td><td>
-      <div id="kankyo7" class="barGauge_container"></div></td>
+      <div id="fukai" class="barGauge_container"></div></td>
       <td><font size=22 >熱中症</font></td><td>
-      <div id="kankyo8" class="barGauge_container"></div></td>
+      <div id="netyuusyou" class="barGauge_container"></div></td>
       </tr>
     </table>
 

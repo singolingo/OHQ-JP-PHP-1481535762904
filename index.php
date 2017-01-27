@@ -29,8 +29,16 @@
     var class_KankyoSensor = ncmb.DataStore("sensor_data");
 //    var KS = new class_KankyoSensor();
 
-    var target = document.getElementById("message1");
-    target.innerHTML = "接続成功";
+
+    var target1 = document.getElementById("message1");
+    target1.innerHTML = "接続成功";
+    var target2 = document.getElementById("message2");
+    var target3 = document.getElementById("message3");
+    var target4 = document.getElementById("message4");
+    var target5 = document.getElementById("message5");
+    var target6 = document.getElementById("message6");
+    var target7 = document.getElementById("message7");
+    var target8 = document.getElementById("message8");
 
     var temper; //Temperature
     var humid; //Humidity
@@ -42,13 +50,14 @@
     var air; //Air Pressure
 
 
-    class_KankyoSensor.qualTo("sensorId","1B-00-01-21") //SensorIdは埋め込み。
+    class_KankyoSensor.equalTo("sensorId","1B-00-01-21") //SensorIdは埋め込み。
     .order("measureDate",true)  //降順にソート（昇順の場合は、第２引数をカット。）
     .limit(1)
     .fetchAll()
     .then(function(results){
        for (var i = 0; i < results.length; i++) {
          var object = results[i];
+
          temper = object.get("temperature");
          humid = object.get("humidity");
          illumi = object.get("illuminance");
@@ -57,21 +66,36 @@
          temphumid = object.get("temperatureHumidity");
          heat = object.get("heatStroke");
          air = object.get("airPressure");
+
+         target1.innerHTML = temper;
+         target2.innerHTML = humid;
+         target3.innerHTML = illumi;
+         target4.innerHTML = uv;
+         target5.innerHTML = noize;
+         target6.innerHTML = temphumid;
+         target7.innerHTML = heat;
+         target8.innerHTML = air;
+
+         $('#kion').BarGauge.value = 70;
+         $('#kion').update();
+
+
+
        }
      })
     .catch(function(err){
        console.log(err);
+       target.innerHTML = "データ取得失敗";
      });
 
-    target.innerHTML = msg[0] + msg[1] + msg[2] + msg[3];
 
  }
 
+</script>
 
-
+<script>
 <!-- OGSC Cloud  -->
-     // ヘッダーを指定
-	header( "Content-Type: application/json; charset=utf-8" ) ;
+	header( "Content-Type: application/json; charset=utf-8" ) ;　// ＪＳＯＮ用にヘッダーを指定
 	$url = "http://OGSC.com"; // OGSC Cloud API サーバーのURL　＆　アクセスキー
 	$json = file_get_contents($url);
 	//mb_language("Japanese");  php.ini の設定が難しい場合は、これを宣言。
@@ -156,10 +180,10 @@ $(document).ready(function(a) {
 });
 
 
-//BarGaugeのデータ
+//BarGaugeを画面ロード時に初期化
 $(document).ready(function(b) {
     $('#kion').BarGauge({
-		value: temper,
+		value: 30,
 		goal: 100,
 		decPlaces: 2,
         color: '#ff0000',
@@ -174,7 +198,7 @@ $(document).ready(function(b) {
 		toolTip: '推移を表示'
 	});
 	$('#shitudo').BarGauge({
-		value: humid,
+		value: 60,
 		goal: 100,
 		decPlaces: 2,
 		color: '#00ff00',
@@ -246,7 +270,7 @@ $(document).ready(function(b) {
 		animSpeed: 'slow',
 		animType: 'linear'
 	});
-    $('#hukai').BarGauge({
+    $('#fukai').BarGauge({
 		value: 70,
 		goal: 100,
 		decPlaces: 2,
@@ -260,7 +284,7 @@ $(document).ready(function(b) {
 		animSpeed: 'slow',
 		animType: 'linear'
 	});
-    $('netyusyou').BarGauge({
+    $('#netyuusyou').BarGauge({
 		value: 51,
 		goal: 100,
 		color: 'purple',
@@ -302,6 +326,13 @@ $(document).ready(function(b) {
 
     <input type="button" id="btn1" value="テスト" onclick="onKankyoButton1_Click()" /><br>
     <div id="message1">ボタンを押してください。</div><br>
+    <div id="message2"></div><br>
+    <div id="message3"></div><br>
+    <div id="message4"></div><br>
+    <div id="message5"></div><br>
+    <div id="message6"></div><br>
+    <div id="message7"></div><br>
+    <div id="message8"></div><br>
 
       <tr>
       <td><font size=22 >気温</font></td><td>
